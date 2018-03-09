@@ -14,6 +14,7 @@ STDIN = 0
 SYSEXIT = 1
 EXIT_SUCCESS = 0
 
+
 .text
 .global _start
 _start:
@@ -43,13 +44,13 @@ wypisz:
 	mov $SYSWRITE, %eax
         mov $STDOUT, %ebx
         mov $buf, %ecx
-        mov %buf_len, %edx
+        mov $buf_len, %edx
         int $0x80
 
 wypisznewline:
 	mov $SYSWRITE, %eax
-        mov $STDOUT, %edi
-        mov $newline, %esi
+        mov $STDOUT, %ebx
+        mov $newline, %ecx
         mov $newline_len, %edx
 	int $0x80	
 
