@@ -34,6 +34,7 @@ wczytaj:
 	mov $buf, %ecx
 	mov $buf_len, %edx
 	int $0x80
+	jmp porownaj2
 
 porownaj:
 	mov $text, %esi
@@ -42,6 +43,18 @@ porownaj:
 	cld
 	repe cmpsb
 	jecxz rowne
+
+porownaj2:
+	mov $0, %edi
+	mov text(,%edi,1), %al
+	mov buf(,%edi,1), %bl
+	inc %edi
+	cmp %al, %bl
+	jne nierowne
+	mov $0, %eax
+	cmp %al, %eax
+	je rowne
+	jmp porownaj2
 
 nierowne: 
         mov $SYSWRITE, %eax
