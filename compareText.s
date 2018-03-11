@@ -45,16 +45,18 @@ porownaj:
 	jecxz rowne
 
 porownaj2:
-	mov $0, %edi
-	mov text(,%edi,1), %al
-	mov buf(,%edi,1), %bl
-	inc %edi
+	mov $0, %esi
+
+loop:
+	mov text(,%esi,1), %al
+	mov buf(,%esi,1), %bl
+	inc %esi
 	cmp %al, %bl
 	jne nierowne
-	mov $0, %eax
-	cmp %al, %eax
+	mov $0, %cl
+	cmp %al, %cl
 	je rowne
-	jmp porownaj2
+	jmp loop
 
 nierowne: 
         mov $SYSWRITE, %eax
