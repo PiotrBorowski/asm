@@ -19,5 +19,28 @@ EXIT_SUCCESS = 0
 .global _start
 
 _start:
+	
+	mov $4, %edx
+	clc
+	pushf
+loop:
+	movl liczba1(,%edx,4), %eax
+	movl liczba2(,%edx,4), %ebx
+	dec %edx
+	popf
+	adcl %ebx,%eax
+	pushf
+	mov %eax,$buf(,%edx,4)
+	cmp $0, %edx
+	jne loop
+
+	popf
+	jnc exit
+	push $1
 
 
+exit:
+	
+	mov $SYSEXIT, %eax
+	mov $EXIT_SUCCESS, %ebx
+	int $0x80
