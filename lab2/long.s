@@ -30,7 +30,7 @@ loop:
 	popf
 	adcl %ebx,%eax
 	pushf
-	mov %eax,$buf(,%edx,4)
+	movl %eax, buf(,%edx,4)
 	cmp $0, %edx
 	jne loop
 
@@ -40,7 +40,11 @@ loop:
 
 
 exit:
-	
+	mov $SYSWRITE, %eax
+	mov $STDOUT, %ebx
+	mov $buf, %ecx
+	mov $10, %edx
+	int $0x80
 	mov $SYSEXIT, %eax
 	mov $EXIT_SUCCESS, %ebx
 	int $0x80
