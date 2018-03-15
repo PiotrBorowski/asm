@@ -22,21 +22,20 @@ _start:
 	
 	mov $4, %edx
 	clc
-	pushf
+	mov $0, %cl
 loop:
 	movl liczba1(,%edx,4), %eax
 	movl liczba2(,%edx,4), %ebx
 	dec %edx
+	push %rcx
 	popf
 	adcl %ebx,%eax
 	pushf
-	movl %eax, buf(,%edx,4)
+	pop %rcx
+#	movl %eax, buf(,%edx,4)
+	push %rax
 	cmp $0, %edx
 	jne loop
-
-	popf
-	jnc exit
-	push $1
 
 
 exit:
