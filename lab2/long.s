@@ -30,7 +30,9 @@ loop:
 	
 	cmp $0, %edx
 	jne loop
-	
+	popf
+	jnc exit
+	push $1
 
 exit:
 	mov $SYSEXIT, %eax
