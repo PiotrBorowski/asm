@@ -1,19 +1,13 @@
+.code32
 .data
 liczba1:
-	.long 0x10304008, 0x701100FF, 0x45100020, 0x08570030
+	.long 0x10304008, 0x70000000, 0x00000001, 0x00000001
 liczba2:
-	.long 0xF040500C, 0x00220026, 0x321000CB, 0x04520031
+	.long 0xF040500C, 0x00000000, 0xFFFFFFFF, 0x00000001
 
-liczba1_len = . - liczba1
-liczba2_len = . - liczba2
 
-SYSWRITE = 4
-STDOUT = 1
 SYSEXIT = 1
 EXIT_SUCCESS = 0
-
-.bss
-.comm buf, 512
 
 .text
 .global _start
@@ -22,28 +16,23 @@ _start:
 	
 	mov $4, %edx
 	clc
-	mov $0, %cl
+	pushf
 loop:
+	sub $1, %edx
 	movl liczba1(,%edx,4), %eax
 	movl liczba2(,%edx,4), %ebx
-	dec %edx
-	push %rcx
+
 	popf
 	adcl %ebx,%eax
+	push %eax
 	pushf
-	pop %rcx
-#	movl %eax, buf(,%edx,4)
-	push %rax
+
+	
 	cmp $0, %edx
 	jne loop
-
+	
 
 exit:
-	mov $SYSWRITE, %eax
-	mov $STDOUT, %ebx
-	mov $buf, %ecx
-	mov $10, %edx
-	int $0x80
 	mov $SYSEXIT, %eax
 	mov $EXIT_SUCCESS, %ebx
 	int $0x80
