@@ -5,6 +5,8 @@ liczba1:
 liczba2:
 	.long 0xF040500C, 0x00000000, 0xFFFFFFFF, 0x00000001
 
+l1_len = . - liczba1
+
 
 SYSEXIT = 1
 EXIT_SUCCESS = 0
@@ -13,7 +15,6 @@ EXIT_SUCCESS = 0
 .global _start
 
 _start:
-	
 	mov $4, %edx
 	clc
 	pushf
