@@ -6,8 +6,6 @@ l1: .float 14.12
 
 l2: .float -13.5
 
-cw: .short 0
-
 SYSEXIT = 1
 EXIT_SUCCESS = 0
 

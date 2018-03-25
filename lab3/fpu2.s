@@ -22,17 +22,17 @@ setCW:
 	FWAIT 	
 	MOV cw, %ax 	#zaladowanie cw do ax
 
-	#Ustawienie precyzji
+#zerowanie bitow precyzji, reszta bez zmian, nastepnie ustawianie
 	AND $0xFCFF, %ax 	#1111 1100 1111 1111  PC
-	OR $0x0000, %ax 	#SINGLE PRECISION - 32bit /24 REAL4
-	#OR $0x0200, %ax 	#DOUBLE PRECISION - 64bit /53 REAL8
-	#OR $0x0300, %ax 	#EXTENDED PRECISION - 80bit /64 REAL10
+	OR $0x0000, %ax 	#SINGLE 32bit R4
+	#OR $0x0200, %ax 	#DOUBLE 64bit R8
+	#OR $0x0300, %ax 	#EXTENDED 80bit REAL10
 
-	#Ustawienie zaokraglen
+#zerowanie bitow zaokraglania, reszta bez zmian, nast ustawianie
 	AND $0xF3FF, %ax 	#1111 0011 1111 1111 RC
-	OR $0x0000, %ax 	#Zaokraglenie do najblizszej lub parzystej
-	#OR $0x0400, %ax 	#Zaokraglenie w dol
-	#OR $0x0800, %ax 	#Zaokraglenie w gore
+	OR $0x0000, %ax 	#zaokr do najblizszej lub parzystej
+	#OR $0x0400, %ax 	#zaokr w dol
+	#OR $0x0800, %ax 	#zaokr w gore
 	#OR $0x0C00, %ax 	#truncate
 
 	MOV %ax, cw
