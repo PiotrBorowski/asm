@@ -14,15 +14,16 @@ EXIT_SUCCESS = 0
 _start:
 
 pluszero:
-fld l1
+fld l1 
 fldz
-fmulp
+fmulp #mnozy i pop, czyli inkrementacja wskaznika stosu
 
 minuszero:
 fld l2
 fldz
 fmulp
 
+#najpierw przez co dzielimy czyli zero potem liczba ktora dzielimy czyli l1
 plusinf:
 fldz
 fld l1
@@ -33,10 +34,12 @@ fldz
 fld l2
 fdivp
 
+#pierwiastek liczby ujmnej
 NaN1:
 fld l2
 fsqrt
 
+#zero podzielic przez zero
 NaN2:
 fldz
 fldz

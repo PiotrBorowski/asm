@@ -2,10 +2,10 @@
 	
 .data
 l1:
-	.float 12.0	
+	.float 900000000
 			
 l2:
-        .float 6.0
+        .float 0.0000000001
 
 cw: .short 0	
 
@@ -26,13 +26,12 @@ setCW:
 	AND $0xFCFF, %ax 	#1111 1100 1111 1111  PC
 	OR $0x0000, %ax 	#SINGLE 32bit R4
 	#OR $0x0200, %ax 	#DOUBLE 64bit R8
-	#OR $0x0300, %ax 	#EXTENDED 80bit REAL10
-
+	#OR $0x0300, %ax 	#EXTENDED 80bit R10
 #zerowanie bitow zaokraglania, reszta bez zmian, nast ustawianie
 	AND $0xF3FF, %ax 	#1111 0011 1111 1111 RC
-	OR $0x0000, %ax 	#zaokr do najblizszej lub parzystej
+	#OR $0x0000, %ax 	#zaokr do najblizszej lub parzystej
 	#OR $0x0400, %ax 	#zaokr w dol
-	#OR $0x0800, %ax 	#zaokr w gore
+	OR $0x0800, %ax 	#zaokr w gore
 	#OR $0x0C00, %ax 	#truncate
 
 	MOV %ax, cw
@@ -43,28 +42,8 @@ set:
 	FLD l1
 	FLD l2
 
-add:
-	FST %st(2)	#kopia st0 do st2, czyli liczby potrzebnej do dzialan
-	FADD %st(1), %st(0)	#dodawanie i wynik w st0
-	FST %st(3)	#wynik z st0 trafia do st3
-
-sub:
-	FXCH %st(2)	#zamieniam zachowana liczbe w st2 z st0
-	FST %st(2)	#zachowuje st0 w st2
-	FSUB %st(1), %st(0) #wynik w st0
-	FST %st(4)	#kopia wyniku z st0 do st4
-
-mul:
-	FXCH %st(2)	
-	FST %st(2)	
-	FMUL %st(1), %st(0)	
-	FST %st(5)	#kopia wyniku do st5
-
 div:	
-	FXCH %st(2)	
-	FST %st(2)
-	FDIV %st(1), %st(0)	
-	FST %st(6)	
+	FDIV %st(1), %st(0)		
 
 exit:
 	MOV $SYSEXIT, %eax

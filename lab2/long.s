@@ -1,11 +1,9 @@
 .code32
 .data
 liczba1:
-	.long 0x10304008, 0x70000000, 0x00000001, 0x00000001
+	.long 0x00304008, 0x70000000, 0x00000001, 0x00000001
 liczba2:
 	.long 0xF040500C, 0x00000000, 0xFFFFFFFF, 0x00000001
-
-l1_len = . - liczba1
 
 
 SYSEXIT = 1
