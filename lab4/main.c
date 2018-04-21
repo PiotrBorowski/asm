@@ -17,10 +17,10 @@ void generate()
 {
     for(int i = 0; i < 2048; i++)
     {
-        Array[i].a = rand()%100000 + 1; 
-        Array[i].b = rand()%100000 + 1; 
-        Array[i].c = rand()%100000 + 1; 
-        Array[i].d = rand()%100000 + 1; 
+        Array[i].a = rand()%10000 + 1; 
+        Array[i].b = rand()%10000 + 1; 
+        Array[i].c = rand()%10000 + 1; 
+        Array[i].d = rand()%10000 + 1; 
     }
 }
 
@@ -334,41 +334,45 @@ struct Vector DIV_SISD(int numberOfNumbers){
 
     for(int i = 0; i < 10; i++)
     {
-        for(int j = 0; j < numberOfNumbers / 4; j+=2)
+        for(int j = 0; j < (numberOfNumbers / 4); j+=2)
         {
             x = Array[j];
             y = Array[j+1];
 
             clock_t start = clock();
             asm(
-                "mov %1, %%eax \n"
-                "mov %2, %%ebx \n"
-                "div %%ebx\n"
-                "mov %%eax, %0 \n"                
+                "movl %1, %%eax \n"
+                "movl %2, %%ebx \n"
+                "xor %%edx,%%edx\n"
+                "divl %%ebx\n"
+                "movl %%eax, %0 \n"                
                 : "=g"(result.a)
                 : "g"(x.a), "g"(y.a)
             );
               asm(
-               "mov %1, %%eax \n"
-                "mov %2, %%ebx \n"
-                "div %%ebx\n"
-                "mov %%eax, %0 \n"
+                "movl %1, %%eax \n"
+                "movl %2, %%ebx \n"
+                "xor %%edx,%%edx\n"
+                "divl %%ebx\n"
+                "movl %%eax, %0 \n"                
                 : "=g"(result.b)
                 : "g"(x.b), "g"(y.b)
             );
-              asm(
-                 "mov %1, %%eax \n"
-                "mov %2, %%ebx \n"
-                "div %%ebx\n"
-                "mov %%eax, %0\n"
+            asm(
+                "movl %1, %%eax \n"
+                "movl %2, %%ebx \n"
+                "xor %%edx,%%edx\n"
+                "divl %%ebx\n"
+                "movl %%eax, %0 \n"                
                 : "=g"(result.c)
                 : "g"(x.c), "g"(y.c)
             );
-              asm(
-                 "mov %1, %%eax \n"
-                "mov %2, %%ebx \n"
-                "div %%ebx\n"
-                "mov %%eax, %0 \n"
+            asm(
+                "movl %1, %%eax \n"
+                "movl %2, %%ebx \n"
+                "xor %%edx,%%edx\n"
+                "divl %%ebx\n"
+                "movl %%eax, %0 \n"                
                 : "=g"(result.d)
                 : "g"(x.d), "g"(y.d)
             );
@@ -410,8 +414,6 @@ int main(){
         MUL_SISD(i);
         DIV_SISD(i);
     }
-
-    
 
 
     return 0;
