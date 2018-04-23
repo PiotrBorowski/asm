@@ -389,12 +389,7 @@ struct Vector DIV_SISD(int numberOfNumbers){
 }
 int main(){
     srand(time(NULL));
-    //File * file = fopen("wyniki.txt", "w");
-    //if(file == NULL){
-       // printf("FILE ERROR");
-        //exit(2);
-    //}
-
+ 
     generate();
 
 
