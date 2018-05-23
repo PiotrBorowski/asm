@@ -11,6 +11,7 @@ struct Vector{
 */
 float countDet(struct Vector mat[4])
 {
+    struct Vector temp;
     asm(
         //macierz A a i b
         //(1,0,2,0)
@@ -56,10 +57,10 @@ float countDet(struct Vector mat[4])
 
         "shufps $0b11101111, %%xmm0, %%xmm0\n"
         "shufps $0b00010110, %%xmm3, %%xmm3\n"
-        "mulps %%xmm0, %%xmm3"
+        "mulps %%xmm0, %%xmm3\n"
 
         //wynik w xmm3
-        "subps %%xmm1, %%xmm3"
+        "subps %%xmm1, %%xmm3\n"
 
         //mnozenie A i B WYNIK w xmm3
         "mulps %%xmm2, %%xmm3\n"
@@ -83,15 +84,25 @@ float countDet(struct Vector mat[4])
         "movups (%0), %%xmm0\n"
         "movups (%1), %%xmm2\n"
 
-        "shufps $0b00000111, %%xmm0, %%xmm0" 
-        "shufps $0b00001110, %%xmm2, %%xmm2"
-          
+        "shufps $0b00000111, %%xmm0, %%xmm0\n" 
+        "shufps $0b00001110, %%xmm2, %%xmm2\n"
+        "mulps %%xmm0, %%xmm2\n"
+        //wynik w xmm2
+
+        //roznica  wynik w xmm2
+        "subps %%xmm1, %%xmm2\n"
+        
         //macierz D c i d
         //(0,0,0,0)
         //(0,0,2,1)
         //(0,0,2,1)
         //(0,0,0,0)
+
+        :
+        : "r" (mat[0].number), "r" (mat[1].number),  "r" (mat[2].number),  "r" (mat[3].number), "r" (temp.number)  
     );
+
+
 }
 
 int main()
