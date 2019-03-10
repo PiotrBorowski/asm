@@ -31,7 +31,32 @@ int $SYSCALL32
 
 movl %eax, TEXT_SIZE	#liczba wczytanych znakow
 
-mul %ebx
+movl $TEXT_SIZE, %edx
+movl $BUFOR, %ecx
+movl $STDOUT, %ebx
+movl $WRITE, %eax
+int $SYSCALL32
+
+
+movl TEXT_SIZE, %ecx
+movl $0, %edi
+
+zmien:
+movb BUFOR(,%edi,1), %al
+movb %al, %bl
+andb $0xDF, %bl
+
+cmpb $'Z', %bl
+ja skip
+subb $'A', %bl
+jb skip
+xorb $0x20, %al
+movb %al, BUFOR(,%edi,1)
+
+skip:
+incl %edi
+loop zmien
+
 
 movl $TEXT_SIZE, %edx
 movl $BUFOR, %ecx

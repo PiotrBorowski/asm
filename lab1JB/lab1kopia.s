@@ -31,6 +31,8 @@ int $SYSCALL32
 
 movl %eax, TEXT_SIZE	#liczba wczytanych znakow
 
+mul %ebx
+
 movl $TEXT_SIZE, %edx
 movl $BUFOR, %ecx
 movl $STDOUT, %ebx
