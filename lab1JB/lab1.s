@@ -46,10 +46,10 @@ movb BUFOR(,%edi,1), %al
 movb %al, %bl
 andb $0xDF, %bl
 
-cmpb $'Z', %bl
-ja skip
+cmpb $'Z', %bl 
+ja skip			#czy jest powyzej kodu Z
 subb $'A', %bl
-jb skip
+jb skip			#czy jest ponizej kodu A
 xorb $0x20, %al
 movb %al, BUFOR(,%edi,1)
 
