@@ -39,10 +39,9 @@ int $SYSCALL32
 
 
 movl TEXT_SIZE, %ecx
-movl $0, %edi
 
 zmien:
-movb BUFOR(,%edi,1), %al
+movb BUFOR(,%ecx,1), %al
 movb %al, %bl
 andb $0xDF, %bl
 
@@ -51,11 +50,12 @@ ja skip			#czy jest powyzej kodu Z
 subb $'A', %bl
 jb skip			#czy jest ponizej kodu A
 xorb $0x20, %al
-movb %al, BUFOR(,%edi,1)
+movb %al, BUFOR(,%ecx,1)
 
 skip:
-incl %edi
-loop zmien
+decl %ecx
+cmpl $-1, %ecx
+jne zmien
 
 
 movl $TEXT_SIZE, %edx
