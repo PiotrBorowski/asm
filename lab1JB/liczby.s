@@ -7,9 +7,10 @@ WRITE = 4
 
 .data
 
-liczba: .byte 0b01101011
+liczba:
+	 .int 0b0000111100001111
 rozm = .-liczba
-wynik: .ascii "    \n"
+wynik: .ascii "             \n"
 wynik_rozm = .-wynik
 #.bss
 #.comm wynik, 4
@@ -18,7 +19,7 @@ wynik_rozm = .-wynik
 .text
 _start:
 
-movzbl liczba, %eax
+movl liczba, %eax
 movl $wynik_rozm-1, %edi
 
 petla:
