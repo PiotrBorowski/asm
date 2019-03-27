@@ -8,7 +8,7 @@ WRITE = 4
 .data
 
 liczba:
-	 .int 0b0000111100001111
+	 .int 0b00001111000011110000111100001111
 rozm = .-liczba
 wynik: .ascii "             \n"
 wynik_rozm = .-wynik
