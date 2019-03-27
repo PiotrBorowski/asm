@@ -47,11 +47,9 @@ movl $0, %edi
 
 movb (%ebx, %edi, 1), %al
 subb $'0', %al
+incl %edi
 
 loop:
-incl %edi
-cmpl %edi, %ecx
-je end
 
 movl $10, %edx
 mull %edx
@@ -60,7 +58,9 @@ movb (%ebx, %edi, 1), %dl
 subb $'0', %dl
 addl %edx, %eax
 
-jmp loop
+incl %edi
+cmpl %edi, %ecx
+jne loop
 ################################
 end:
 movl %ebp, %esp
