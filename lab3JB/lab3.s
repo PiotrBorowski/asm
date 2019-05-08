@@ -44,23 +44,17 @@ decl %ecx
 movl $0, %eax
 movl $0, %edx
 movl $0, %edi
-
-movb (%ebx, %edi, 1), %al
-subb $'0', %al
-incl %edi
+movl $10,%esi
 
 loop:
-
-movl $10, %edx
-mull %edx
-xorl %edx, %edx
+mull %esi
 movb (%ebx, %edi, 1), %dl
 subb $'0', %dl
 addl %edx, %eax
 
 incl %edi
-cmpl %edi, %ecx
-jne loop
+cmpl %ecx, %edi
+jl loop
 ################################
 end:
 movl %ebp, %esp
