@@ -8,6 +8,10 @@ underflow: .string "underflow"
 precision: .string "utrata precyzji"
 
 one: .float 0x00000001
+x: .float 16384
+under: .float -16450
+two: .float 2.0
+tree: .float  3.0
 
 .text
 .globl throwInvalid
@@ -36,16 +40,83 @@ movq %rsp, %rbp
 
 finit 
 
-#pushq $0x00000001
+pushq $0x00000001
 
-#fld (%rsp)
-fld1
+fld (%rsp)
+#fld1
 fldz
 faddp
 
 movq %rbp, %rsp
 popq %rbp
 ret
+
+.globl throwZeroDiv
+.type throwZeroDiv, @function
+throwZeroDiv:
+
+pushq %rbp
+movq %rsp, %rbp
+
+finit 
+
+fld1
+fldz
+fdivrp
+
+movq %rbp, %rsp
+popq %rbp
+ret
+
+.globl throwOverflow
+.type throwOverflow, @function
+throwOverflow:
+
+pushq %rbp
+movq %rsp, %rbp
+
+finit 
+
+fld x
+fld1
+fscale
+
+movq %rbp, %rsp
+popq %rbp
+ret
+
+.globl throwUnderflow
+.type throwUnderflow, @function
+throwUnderflow:
+
+pushq %rbp
+movq %rsp, %rbp
+
+finit 
+fld under
+fld1
+fscale
+
+movq %rbp, %rsp
+popq %rbp
+ret
+
+.globl throwPrecision
+.type throwPrecision, @function
+throwPrecision:
+
+pushq %rbp
+movq %rsp, %rbp
+
+finit 
+fld two
+fld tree
+fdivrp
+
+movq %rbp, %rsp
+popq %rbp
+ret
+
 
 .globl readExceptions
 .type readExceptions, @function

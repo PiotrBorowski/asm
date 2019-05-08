@@ -1,13 +1,31 @@
 void throwInvalid();
 void throwDenormalized();
+void throwZeroDiv();
+void throwOverflow();
+void throwUnderflow();
+void throwPrecision();
+
 void readExceptions();
+
 
 int main()
 {
-	throwInvalid();
-	readExceptions();
+//	throwInvalid();
+//	readExceptions();
 
 
-	throwDenormalized();
+//	throwDenormalized();
+//	readExceptions();
+//
+//	throwZeroDiv();
+//	readExceptions();
+
+	//throwOverflow();
+	//readExceptions();
+
+	//throwUnderflow();
+	//readExceptions();
+
+	throwPrecision();
 	readExceptions();
 }
