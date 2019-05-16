@@ -1,31 +1,12 @@
-void throwInvalid();
-void throwDenormalized();
-void throwZeroDiv();
-void throwOverflow();
-void throwUnderflow();
-void throwPrecision();
+#include <stdio.h>
 
-void readExceptions();
+extern void heron(float a, float b, float c);
+float a = 5.1;
+float b = 5.1;
+float c = 10.0;
 
 
 int main()
 {
-//	throwInvalid();
-//	readExceptions();
-
-
-//	throwDenormalized();
-//	readExceptions();
-//
-//	throwZeroDiv();
-//	readExceptions();
-
-	//throwOverflow();
-	//readExceptions();
-
-	//throwUnderflow();
-	//readExceptions();
-
-	throwPrecision();
-	readExceptions();
+	heron(a, b, c);
 }

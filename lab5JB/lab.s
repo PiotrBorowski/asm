@@ -31,6 +31,8 @@ movq %rbp, %rsp
 popq %rbp
 ret
 
+
+
 .globl throwDenormalized
 .type throwDenormalized, @function
 throwDenormalized:
@@ -51,6 +53,8 @@ movq %rbp, %rsp
 popq %rbp
 ret
 
+
+
 .globl throwZeroDiv
 .type throwZeroDiv, @function
 throwZeroDiv:
@@ -67,6 +71,8 @@ fdivrp
 movq %rbp, %rsp
 popq %rbp
 ret
+
+
 
 .globl throwOverflow
 .type throwOverflow, @function
@@ -85,6 +91,8 @@ movq %rbp, %rsp
 popq %rbp
 ret
 
+
+
 .globl throwUnderflow
 .type throwUnderflow, @function
 throwUnderflow:
@@ -101,6 +109,8 @@ movq %rbp, %rsp
 popq %rbp
 ret
 
+
+
 .globl throwPrecision
 .type throwPrecision, @function
 throwPrecision:
@@ -116,6 +126,7 @@ fdivrp
 movq %rbp, %rsp
 popq %rbp
 ret
+
 
 
 .globl readExceptions
@@ -174,5 +185,6 @@ readEnd:
 movq %rbp, %rsp
 popq %rbp
 ret
+
 
 
